@@ -4,19 +4,18 @@ close all
 tempdata = readmatrix('temp.csv'); 
 winddata = readmatrix('wind.csv');
 
-D0 = 1; % Outer conductor diameter [m]
-Dc = 1; % Conductor core diameter [m]
-Area = 1; % Projected area of conductor [m^2/m]
+D0 = 27.0002*10^-3; % Outer conductor diameter [m]
+% Dc = 1; % Conductor core diameter [m]
+Area = 27.0002*10^-3; % Projected area of conductor [m^2/m]
 
 Ts = 60; % Conductor surface temperature [°C]
 
 
 Ta = tempdata(566995:566995+8760,3); % Ambient air temperature [°C]
-Tlow = 1; % Low average conductor temperature for which ac resistance is specified [°C]
-Thigh = 2; % High average conductor temperature for which ac resistance is specified [°C]
-R_Tlow = 1; % Lower temperature resistance [ohm/m]
-R_Thigh = 2; % Higher temperature resistance [ohm/m]
-tao = 1; % Thermal time constant of the conductor [min]. Usually between 5 and 20
+Tlow = 25; % Low average conductor temperature for which ac resistance is specified [°C]
+Thigh = 100; % High average conductor temperature for which ac resistance is specified [°C]
+R_Tlow = 0.0736325*10^-3 ; % Lower temperature resistance [ohm/m]
+R_Thigh = 0.088359*10^-3; % Higher temperature resistance [ohm/m]
 
 Zl = 90; % Azimuth of line [deg]
 Lat = 65; % Degrees of latitude [deg]
@@ -97,10 +96,14 @@ for i=1:length(Ta)
     qs = alpha*Qse*sin(theta)*Area; % Solar heat gain [W/m]
     
     % Conductor resistance
-    Tavg = 1; % Average temperature of aluminum strand layers [°C]
-    R_Tavg = ((R_Thigh-R_Tlow)/(Thigh-Tlow))*(Tavg-Tlow)+R_Tlow; % AC resistance of conductor at temperature Tavg [ohm/m]
+    R_Ts = ((R_Thigh-R_Tlow)/(Thigh-Tlow))*(Ts-Tlow)+R_Tlow; % AC resistance of conductor at temperature Tavg [ohm/m]
     
     % Ampacity
-    I(i) = sqrt((qc+qr-qs)/R_Tavg); % [A]
+    I(i) = sqrt((qc+qr-qs)/R_Ts); % [A]
 end
+
+U = 400*10^3;
+PF = 0.95;
+
+power = sqrt(3)*U*I*PF;
 
