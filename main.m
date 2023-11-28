@@ -1,6 +1,12 @@
 close all
 
 %% Setup
+% Forecasted data
+data_for = readmatrix('24_hr_forecast_2weeks.csv');
+
+% Actual data
+data_act = readmatrix('modified_historical_2weeks.csv');
+
 % Forecasted temperature
 temp_for = readmatrix('temp.csv'); 
 
