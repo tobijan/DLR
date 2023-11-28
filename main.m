@@ -5,31 +5,37 @@ close all
 data_for = readmatrix('24_hr_forecast_2weeks.csv');
 
 % Actual data
-data_act = readmatrix('modified_historical_2weeks.csv');
+data_act = readmatrix('modified_historical_2weeks_Boden.csv');
 
 % Forecasted temperature
-temp_for = readmatrix('temp.csv'); 
+temp_for = data_for(:,2); 
 
 % Actual temperature
-temp_act = readmatrix('temp.csv');
+temp_act = data_act(:,3);
 
-% Forecasted wind
-wind_for = readmatrix('wind.csv');
+% Forecasted wind speed
+windspeed_for = data_for(:,3);
 
-% Actual wind
-wind_act = readmatrix('wind.csv');
+% Actual wind speed
+windspeed_act = data_act(:,5);
+
+% Forecasted wind direction
+winddir_for = data_for(:,4);
+
+% Actual wind direction
+winddir_act = data_act(:,4);
 
 % Ambient air temperature [°C]
-Ta_for = temp_for(566995:566995+8759,3); 
-Ta_act = temp_act(566995:566995+8759,3); 
+Ta_for = temp_for; 
+Ta_act = temp_act; 
 
 % Wind velocity [m/s]
-Vw_for = wind_for(577612:577612+8759,5); 
-Vw_act = wind_act(577612:577612+8759,5);
+Vw_for = windspeed_for; 
+Vw_act = windspeed_act;
 
 % Wind direction. Angle between the wind direction and the conductor axis [deg]. Look at page 11 if issues occur.
-phi_for = mod(90+wind_for(577612:577612+8759,3),360); 
-phi_act = mod(90+wind_act(577612:577612+8759,3),360); 
+phi_for = mod(90+winddir_for,360); 
+phi_act = mod(90+windspeed_act,360); 
 
 % Outer conductor diameter [m]
 D0 = 27.0002*10^-3;
@@ -145,52 +151,114 @@ power_diff = power_for-power_act;
 
 %% Plots
 
+% Difference in transmission capacity
+figure
+plot(1:length(Ta_for),power_diff)
+title('Difference in transmission capacity')
+xlabel('Time [h]')
+ylabel('Capacity [MW]')
+
 % Transmission capacity
 figure
+
+subplot(1,2,1)
 plot(1:length(Ta_for),power_for)
-ylim([0 3000])
-title('Transmission capacity during 2022')
+title('Transmission capacity')
+xlabel('Time [h]')
+ylabel('Capacity [MW]')
+
+subplot(1,2,2)
+plot(1:length(Ta_act),power_act)
+title('Transmission capacity')
 xlabel('Time [h]')
 ylabel('Capacity [MW]')
 
 % Ambient temperature
 figure
+
+subplot(1,2,1)
 plot(1:length(Ta_for),Ta_for)
-title('Ambient temperature during 2022')
+title('Ambient temperature')
+xlabel('Time [h]')
+ylabel('Temperature [C]')
+
+subplot(1,2,2)
+plot(1:length(Ta_act),Ta_act)
+title('Ambient temperature')
 xlabel('Time [h]')
 ylabel('Temperature [C]')
 
 % Wind speed
 figure
+subplot(1,2,1)
+
 plot(1:length(Ta_for),Vw_for)
-title('Wind speed during 2022')
+title('Wind speed')
+xlabel('Time [h]')
+ylabel('Wind speed [m/s]')
+
+subplot(1,2,2)
+plot(1:length(Ta_act),Vw_act)
+title('Wind speed')
 xlabel('Time [h]')
 ylabel('Wind speed [m/s]')
 
 % Wind direction
 figure
+
+subplot(1,2,1)
 plot(1:length(Ta_for),phi_for)
-title('Wind direction during 2022')
+title('Wind direction')
+xlabel('Time [h]')
+ylabel('Wind direction [deg]')
+
+subplot(1,2,2)
+plot(1:length(Ta_act),phi_act)
+title('Wind direction')
 xlabel('Time [h]')
 ylabel('Wind direction [deg]')
 
 % Convection heat loss
 figure
+
+subplot(1,2,1)
 plot(1:length(Ta_for),qc_for)
-title('Convection heat loss during 2022')
+title('Convection heat loss')
+xlabel('Time [h]')
+ylabel('qc [W/m]')
+
+subplot(1,2,2)
+plot(1:length(Ta_act),qc_act)
+title('Convection heat loss')
 xlabel('Time [h]')
 ylabel('qc [W/m]')
 
 % Radiative heat loss
 figure
+
+subplot(1,2,1)
 plot(1:length(Ta_for),qr_for)
-title('Radiative heat loss during 2022')
+title('Radiative heat loss')
+xlabel('Time [h]')
+ylabel('qr [W/m]')
+
+subplot(1,2,2)
+plot(1:length(Ta_act),qr_act)
+title('Radiative heat loss')
 xlabel('Time [h]')
 ylabel('qr [W/m]')
 
 % Solar heat gain
 figure
+
+subplot(1,2,1)
 plot(1:length(Ta_for),qs_for)
-title('Solar heat gain during 2022')
+title('Solar heat gain')
+xlabel('Time [h]')
+ylabel('qs [W/m]')
+
+subplot(1,2,2)
+plot(1:length(Ta_act),qs_act)
+title('Solar heat gain')
 xlabel('Time [h]')
 ylabel('qs [W/m]')
