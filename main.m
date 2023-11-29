@@ -2,7 +2,7 @@ close all
 
 %% Setup
 % Forecasted data
-data_for = readmatrix('24_hr_forecast_2weeks.csv');
+data_for = readmatrix('24hr_forecast_2weeks_Boden.csv');
 
 % Actual data
 data_act = readmatrix('modified_historical_2weeks_Boden.csv');
