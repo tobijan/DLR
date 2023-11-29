@@ -1,25 +1,25 @@
 close all
 
 %% Setup
-% Forecasted data
-data_for = readmatrix('24hr_forecast_2weeks_Boden.csv');
+% Forecast data
+data_for = readmatrix('24hr_forecast_November1st_January5th_Boden.csv');
 
 % Actual data
-data_act = readmatrix('modified_historical_2weeks_Boden.csv');
+data_act = readmatrix('historical_November1st_January5th_Boden.csv');
 
-% Forecasted temperature
+% Forecast temperature
 temp_for = data_for(:,2); 
 
 % Actual temperature
 temp_act = data_act(:,3);
 
-% Forecasted wind speed
+% Forecast wind speed
 windspeed_for = data_for(:,3);
 
 % Actual wind speed
 windspeed_act = data_act(:,5);
 
-% Forecasted wind direction
+% Forecast wind direction
 winddir_for = data_for(:,4);
 
 % Actual wind direction
@@ -82,7 +82,7 @@ U = 400*10^3;
 % Power factor []
 PF = 0.95;
 
-%% Calculate forecasted capacity
+%% Calculate Forecast capacity
 
 I_for = zeros(length(Ta_for),1);
 qc_for = zeros(length(Ta_for),1);
