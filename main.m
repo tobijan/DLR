@@ -30,12 +30,12 @@ Ta_for = temp_for;
 Ta_act = temp_act; 
 
 % Wind velocity [m/s]
-Vw_for = windspeed_for; 
-Vw_act = windspeed_act;
+Vw_for = round(windspeed_for); 
+Vw_act = round(windspeed_act);
 
 % Wind direction. Angle between the wind direction and the conductor axis [deg]. Look at page 11 if issues occur.
-phi_for = mod(90+winddir_for,360); 
-phi_act = mod(90+winddir_act,360); 
+phi_for = round(mod(90+winddir_for,360),-1); 
+phi_act = round(mod(90+winddir_act,360),-1); 
 
 % Outer conductor diameter [m]
 D0 = 27.0002*10^-3;
@@ -148,6 +148,8 @@ power_act = sqrt(3)*U*I_act*PF*10^-6;
 
 %% Calculate difference
 power_diff = power_for-power_act;
+speed_diff = Vw_for-Vw_act;
+dir_diff = mod(phi_for-phi_act,360);
 
 %% Plots
 
@@ -203,18 +205,34 @@ title('Wind speed')
 xlabel('Time [h]')
 ylabel('Wind speed [m/s]')
 
+% Wind speed difference
+figure
+
+plot(1:length(Ta_for),speed_diff)
+title('Wind speed difference')
+xlabel('Time [h]')
+ylabel('Wind speed [m/s]')
+
 % Wind direction
 figure
 
 subplot(1,2,1)
-plot(1:length(Ta_for),phi_for)
+scatter(1:length(Ta_for),phi_for)
 title('Wind direction')
 xlabel('Time [h]')
 ylabel('Wind direction [deg]')
 
 subplot(1,2,2)
-plot(1:length(Ta_act),phi_act)
+scatter(1:length(Ta_act),phi_act)
 title('Wind direction')
+xlabel('Time [h]')
+ylabel('Wind direction [deg]')
+
+% Wind direction difference
+figure
+
+scatter(1:length(Ta_for),dir_diff)
+title('Wind direction difference')
 xlabel('Time [h]')
 ylabel('Wind direction [deg]')
 
