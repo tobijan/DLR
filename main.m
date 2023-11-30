@@ -35,7 +35,7 @@ Vw_act = windspeed_act;
 
 % Wind direction. Angle between the wind direction and the conductor axis [deg]. Look at page 11 if issues occur.
 phi_for = mod(90+winddir_for,360); 
-phi_act = mod(90+windspeed_act,360); 
+phi_act = mod(90+winddir_act,360); 
 
 % Outer conductor diameter [m]
 D0 = 27.0002*10^-3;
