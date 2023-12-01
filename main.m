@@ -148,10 +148,31 @@ power_act = sqrt(3)*U*I_act*PF*10^-6;
 
 %% Calculate difference
 power_diff = power_for-power_act;
+Ta_diff = Ta_for-Ta_act;
 speed_diff = Vw_for-Vw_act;
 dir_diff = mod(phi_for-phi_act,360);
+qc_diff = qc_for-qc_act;
+qr_diff = qr_for-qr_act;
+qs_diff = qs_for-qs_act;
+
+
 
 %% Plots
+
+% Transmission capacity
+figure
+
+subplot(1,2,1)
+plot(1:length(Ta_for),power_for)
+title('Forecast transmission capacity')
+xlabel('Time [h]')
+ylabel('Capacity [MW]')
+
+subplot(1,2,2)
+plot(1:length(Ta_act),power_act)
+title('Actual transmission capacity')
+xlabel('Time [h]')
+ylabel('Capacity [MW]')
 
 % Difference in transmission capacity
 figure
@@ -160,33 +181,26 @@ title('Difference in transmission capacity')
 xlabel('Time [h]')
 ylabel('Capacity [MW]')
 
-% Transmission capacity
-figure
-
-subplot(1,2,1)
-plot(1:length(Ta_for),power_for)
-title('Transmission capacity')
-xlabel('Time [h]')
-ylabel('Capacity [MW]')
-
-subplot(1,2,2)
-plot(1:length(Ta_act),power_act)
-title('Transmission capacity')
-xlabel('Time [h]')
-ylabel('Capacity [MW]')
-
 % Ambient temperature
 figure
 
 subplot(1,2,1)
 plot(1:length(Ta_for),Ta_for)
-title('Ambient temperature')
+title('Forecast ambient temperature')
 xlabel('Time [h]')
 ylabel('Temperature [C]')
 
 subplot(1,2,2)
 plot(1:length(Ta_act),Ta_act)
-title('Ambient temperature')
+title('Actual ambient temperature')
+xlabel('Time [h]')
+ylabel('Temperature [C]')
+
+% Ambient temperature difference
+figure
+
+plot(1:length(Ta_for),Ta_diff)
+title('Ambient temperature difference')
 xlabel('Time [h]')
 ylabel('Temperature [C]')
 
@@ -195,13 +209,13 @@ figure
 subplot(1,2,1)
 
 plot(1:length(Ta_for),Vw_for)
-title('Wind speed')
+title('Forecast wind speed')
 xlabel('Time [h]')
 ylabel('Wind speed [m/s]')
 
 subplot(1,2,2)
 plot(1:length(Ta_act),Vw_act)
-title('Wind speed')
+title('Actual wind speed')
 xlabel('Time [h]')
 ylabel('Wind speed [m/s]')
 
@@ -218,13 +232,13 @@ figure
 
 subplot(1,2,1)
 scatter(1:length(Ta_for),phi_for)
-title('Wind direction')
+title('Forecast wind direction')
 xlabel('Time [h]')
 ylabel('Wind direction [deg]')
 
 subplot(1,2,2)
 scatter(1:length(Ta_act),phi_act)
-title('Wind direction')
+title('Actual wind direction')
 xlabel('Time [h]')
 ylabel('Wind direction [deg]')
 
@@ -241,13 +255,21 @@ figure
 
 subplot(1,2,1)
 plot(1:length(Ta_for),qc_for)
-title('Convection heat loss')
+title('Forecast convection heat loss')
 xlabel('Time [h]')
 ylabel('qc [W/m]')
 
 subplot(1,2,2)
 plot(1:length(Ta_act),qc_act)
-title('Convection heat loss')
+title('Actual convection heat loss')
+xlabel('Time [h]')
+ylabel('qc [W/m]')
+
+% Convection heat loss difference
+figure
+
+plot(1:length(Ta_for),qc_diff)
+title('Convection heat loss difference')
 xlabel('Time [h]')
 ylabel('qc [W/m]')
 
@@ -256,13 +278,21 @@ figure
 
 subplot(1,2,1)
 plot(1:length(Ta_for),qr_for)
-title('Radiative heat loss')
+title('Forecast radiative heat loss')
 xlabel('Time [h]')
 ylabel('qr [W/m]')
 
 subplot(1,2,2)
 plot(1:length(Ta_act),qr_act)
-title('Radiative heat loss')
+title('Actual radiative heat loss')
+xlabel('Time [h]')
+ylabel('qr [W/m]')
+
+% Radiative heat loss difference
+figure
+
+plot(1:length(Ta_for),qr_diff)
+title('Radiative heat loss difference')
 xlabel('Time [h]')
 ylabel('qr [W/m]')
 
@@ -271,12 +301,20 @@ figure
 
 subplot(1,2,1)
 plot(1:length(Ta_for),qs_for)
-title('Solar heat gain')
+title('Forecast solar heat gain')
 xlabel('Time [h]')
 ylabel('qs [W/m]')
 
 subplot(1,2,2)
 plot(1:length(Ta_act),qs_act)
-title('Solar heat gain')
+title('Actual solar heat gain')
+xlabel('Time [h]')
+ylabel('qs [W/m]')
+
+% Solar heat gain difference
+figure
+
+plot(1:length(Ta_for),qs_diff)
+title('Solar heat gain difference')
 xlabel('Time [h]')
 ylabel('qs [W/m]')
