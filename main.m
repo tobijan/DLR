@@ -167,12 +167,14 @@ plot(1:length(Ta_for),power_for)
 title('Forecast transmission capacity')
 xlabel('Time [h]')
 ylabel('Capacity [MW]')
+ylim([0 2200]); 
 
 subplot(1,2,2)
 plot(1:length(Ta_act),power_act)
 title('Actual transmission capacity')
 xlabel('Time [h]')
 ylabel('Capacity [MW]')
+ylim([0 2200]);
 
 % Difference in transmission capacity
 figure
@@ -212,12 +214,14 @@ plot(1:length(Ta_for),Vw_for)
 title('Forecast wind speed')
 xlabel('Time [h]')
 ylabel('Wind speed [m/s]')
+ylim([0 14])
 
 subplot(1,2,2)
 plot(1:length(Ta_act),Vw_act)
 title('Actual wind speed')
 xlabel('Time [h]')
 ylabel('Wind speed [m/s]')
+ylim([0 14])
 
 % Wind speed difference
 figure
@@ -258,12 +262,14 @@ plot(1:length(Ta_for),qc_for)
 title('Forecast convection heat loss')
 xlabel('Time [h]')
 ylabel('qc [W/m]')
+ylim([0 800])
 
 subplot(1,2,2)
 plot(1:length(Ta_act),qc_act)
 title('Actual convection heat loss')
 xlabel('Time [h]')
 ylabel('qc [W/m]')
+ylim([0 800])
 
 % Convection heat loss difference
 figure
