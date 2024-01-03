@@ -235,13 +235,13 @@ ylabel('Wind speed [m/s]')
 figure
 
 subplot(1,2,1)
-scatter(1:length(Ta_for),phi_for)
+scatter(1:length(Ta_for),phi_for,'filled')
 title('Forecast wind direction')
 xlabel('Time [h]')
 ylabel('Wind direction [deg]')
 
 subplot(1,2,2)
-scatter(1:length(Ta_act),phi_act)
+scatter(1:length(Ta_act),phi_act,'filled')
 title('Actual wind direction')
 xlabel('Time [h]')
 ylabel('Wind direction [deg]')
@@ -249,7 +249,7 @@ ylabel('Wind direction [deg]')
 % Wind direction difference
 figure
 
-scatter(1:length(Ta_for),dir_diff)
+scatter(1:length(Ta_for),dir_diff,'filled')
 title('Wind direction difference')
 xlabel('Time [h]')
 ylabel('Wind direction [deg]')
