@@ -68,7 +68,7 @@ Zl = 90;
 Lat = 65; 
 
 % Elevation of conductor above sea level [m]
-He = 40; 
+He = 1000; 
 
 % Solar absorptivity (.23 to .91) []
 alpha = 0.8; 
